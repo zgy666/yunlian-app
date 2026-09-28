@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>云网联产业链协作平台（一期）· 交互说明</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #1a2035;
+    background: #f5f7fa;
+  }
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* Cover */
+  .cover {
+    background: linear-gradient(135deg, #1a3a6e 0%, #1e5fba 60%, #2b82e8 100%);
+    border-radius: 16px;
+    padding: 56px 48px;
+    color: #fff;
+    margin-bottom: 48px;
+  }
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+  }
+  .cover-sub {
+    font-size: 16px;
+    opacity: .75;
+    margin-bottom: 32px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    font-size: 12px;
+    opacity: .6;
+  }
+
+  /* Role badges */
+  .role-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .role-card {
+    flex: 1;
+    min-width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    border-top: 4px solid #ccc;
+  }
+  .role-card.free { border-color: #94a3b8; }
+  .role-card.member { border-color: #3b82f6; }
+  .role-card.partner { border-color: #f59e0b; }
+  .role-card .role-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .role-card.free .role-name { color: #64748b; }
+  .role-card.member .role-name { color: #1d4ed8; }
+  .role-card.partner .role-name { color: #b45309; }
+  .role-card .role-how { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+  .role-card .role-price { font-size: 20px; font-weight: 700; }
+  .role-card.free .role-price { color: #94a3b8; }
+  .role-card.member .role-price { color: #1d4ed8; }
+  .role-card.partner .role-price { color: #b45309; }
+  .role-card .role-desc { font-size: 12px; color: #64748b; margin-top: 6px; }
+
+  /* Section */
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef1f6;
+  }
+  .section-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #1e5fba;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a2035;
+  }
+  .section-subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  th {
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid #eef1f6;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1a2035;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfd; }
+  .tc { text-align: center; }
+  .yes { color: #16a34a; font-weight: 600; }
+  .no { color: #dc2626; }
+  .cond { color: #d97706; font-size: 12px; }
+  .na { color: #cbd5e1; }
+
+  /* Flow */
+  .flow {
+    margin: 16px 0;
+  }
+  .flow-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 10px;
+  }
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 16px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: #e2e8f0;
+  }
+  .step-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #1e5fba;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-content {
+    padding: 4px 0 20px;
+  }
+  .step-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a2035;
+    margin-bottom: 3px;
+  }
+  .step-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.6;
+  }
+  .step-note {
+    display: inline-block;
+    margin-top: 6px;
+    background: #fef9ec;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #92400e;
+  }
+  .step-warn {
+    display: inline-block;
+    margin-top: 6px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #991b1b;
+  }
+
+  /* Story lines */
+  .story-section {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .story-header {
+    padding: 28px 36px 24px;
+    border-bottom: 1px solid #eef1f6;
+  }
+  .story-role-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-bottom: 10px;
+  }
+  .story-role-tag.free { background: #f1f5f9; color: #64748b; }
+  .story-role-tag.member { background: #eff6ff; color: #1d4ed8; }
+  .story-role-tag.partner { background: #fffbeb; color: #b45309; }
+  .story-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .story-bg { font-size: 13px; color: #64748b; font-style: italic; }
+  .story-acts { padding: 28px 36px; display: flex; flex-direction: column; gap: 28px; }
+  .act { }
+  .act-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2035;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .act-num {
+    background: #f1f5f9;
+    color: #64748b;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .act-body {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.8;
+  }
+  .act-body ul { padding-left: 18px; }
+  .act-body li { margin-bottom: 4px; }
+  .act-body strong { color: #1a2035; }
+
+  /* Summary table */
+  .summary-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    margin-bottom: 24px;
+  }
+  .summary-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1a2035;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef1f6;
+  }
+
+  .tag-free { background:#f1f5f9; color:#64748b; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+  .tag-member { background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+  .tag-partner { background:#fffbeb; color:#b45309; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: #1e5fba;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(30,95,186,.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+  }
+  .print-btn:hover { background: #1a4fa0; }
+
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .page { padding: 24px 24px 40px; max-width: 100%; }
+    .print-btn { display: none; }
+    .section, .story-section, .summary-section { box-shadow: none; border: 1px solid #e2e8f0; break-inside: avoid; }
+    .cover { break-after: page; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-label">交互说明文档 · 一期</div>
+    <h1>云网联产业链协作平台</h1>
+    <div class="cover-sub">角色权限 · 功能交互 · 用户故事线</div>
+    <div class="cover-meta">
+      <span>版本：v1.0</span>
+      <span>日期：2026-08-27</span>
+      <span>状态：设计完成</span>
+    </div>
+  </div>
+
+  <!-- Role System -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">0</div>
+      <div>
+        <div class="section-title">角色体系</div>
+        <div class="section-subtitle">平台三级角色定义与权限边界</div>
+      </div>
+    </div>
+    <div class="role-row">
+      <div class="role-card free">
+        <div class="role-name">普通用户</div>
+        <div class="role-how">免费注册获得</div>
+        <div class="role-price">免费</div>
+        <div class="role-desc">可浏览首页、商机摘要、人脉列表，核心功能受限，需升级解锁</div>
+      </div>
+      <div class="role-card member">
+        <div class="role-name">付费会员</div>
+        <div class="role-how">付费升级</div>
+        <div class="role-price">¥299<span style="font-size:13px;font-weight:400">/年</span></div>
+        <div class="role-desc">解锁商机详情、人脉联系、商务会话、知识库、资料管理</div>
+      </div>
+      <div class="role-card partner">
+        <div class="role-name">产业合伙人</div>
+        <div class="role-how">资质审核 + 付费</div>
+        <div class="role-price">¥999<span style="font-size:13px;font-weight:400">/年</span></div>
+        <div class="role-desc">额外解锁项目协作、应用场景、解散权限、优先推送、专属顾问</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Permissions -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">各模块角色权限总览</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>功能模块</th>
+          <th class="tc"><span class="tag-free">普通用户</span></th>
+          <th class="tc"><span class="tag-member">付费会员</span></th>
+          <th class="tc"><span class="tag-partner">产业合伙人</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>首页浏览 / 公告</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机摘要</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机详情（完整）</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机签约 / 终止</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>资料管理（重命名/归档/删除）</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>资料同步至知识库</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>人脉列表（摘要）</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>人脉联系方式（完整）</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>人脉图谱</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>商务会话 / AI 助手</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>知识库</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>项目协作</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>应用场景</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>解散项目 / 场景</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc cond">✓ 仅创建人</td></tr>
+        <tr><td>商机优先推送</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>我的订单（全 Tab）</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>积分中心</td><td class="tc cond">部分任务</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>会员升级（双入口）</td><td class="tc yes">✓</td><td class="tc cond">升级合伙人</td><td class="tc cond">续费</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Module Interactions -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">核心模块交互说明</div>
+      </div>
+    </div>
+
+    <!-- 商机 -->
+    <div class="flow">
+      <div class="flow-title">商机 — 资料管理交互流程</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-dot">1</div>
+          <div class="step-content">
+            <div class="step-label">进入商机详情</div>
+            <div class="step-desc">点击商机列表卡片，进入详情页，包含 4 个子 Tab：商机详情 / 关联项目 / 资料 / 洽谈记录</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">2</div>
+          <div class="step-content">
+            <div class="step-label">上传文件</div>
+            <div class="step-desc">切换至「资料」Tab，点击上传按钮，支持 PDF、Word、图片格式</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">3</div>
+          <div class="step-content">
+            <div class="step-label">文件操作菜单</div>
+            <div class="step-desc">点击文件右侧「⋮」按钮，展开操作菜单：重命名 / 归档（取消归档）/ 同步至知识库 / 删除</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">4</div>
+          <div class="step-content">
+            <div class="step-label">签约商机</div>
+            <div class="step-desc">在商机详情 Tab 点击「签约」，弹出确认弹窗；确认后商机状态变为「已签约」，列表同步更新</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 解散 -->
+    <div class="flow" style="margin-top:24px">
+      <div class="flow-title">项目 / 场景 — 解散流程（仅创建人）</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-dot">1</div>
+          <div class="step-content">
+            <div class="step-label">触发解散</div>
+            <div class="step-desc">在详情页底部点击「解散项目」或「解散场景」按钮（仅创建人角色可见）</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">2</div>
+          <div class="step-content">
+            <div class="step-label">二次确认弹窗</div>
+            <div class="step-desc">底部弹出全屏确认弹窗，展示解散后果警告（成员自动移除、资料保留 30 天等）</div>
+            <div class="step-warn">确认解散按钮在「解散原因」填写前保持禁用</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">3</div>
+          <div class="step-content">
+            <div class="step-label">填写解散原因（必填）</div>
+            <div class="step-desc">在文本框输入解散原因后，「确认解散」按钮解锁</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">4</div>
+          <div class="step-content">
+            <div class="step-label">状态同步</div>
+            <div class="step-desc">确认后：列表卡片变灰显示「已解散」；详情页顶部出现「已解散」提示条；解散按钮消失</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 会员升级 -->
+    <div class="flow" style="margin-top:24px">
+      <div class="flow-title">会员升级 — 合伙人完整流程</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-dot">1</div>
+          <div class="step-content">
+            <div class="step-label">选择套餐</div>
+            <div class="step-desc">普通用户在个人中心看到两个独立入口；点击「产业合伙人」卡片进入升级弹窗</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">2</div>
+          <div class="step-content">
+            <div class="step-label">上传资质文件（必填）</div>
+            <div class="step-desc">支持 PDF、Word（.doc/.docx）、图片（.jpg/.jpeg/.png/.webp/.heic）；可上传多个文件</div>
+            <div class="step-warn">未上传任何文件时「下一步：支付」按钮禁用</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">3</div>
+          <div class="step-content">
+            <div class="step-label">支付</div>
+            <div class="step-desc">确认支付金额，完成支付</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-dot">4</div>
+          <div class="step-content">
+            <div class="step-label">完成</div>
+            <div class="step-desc">显示「申请已提交，等待审核」；关闭后回到个人中心</div>
+            <div class="step-note">支付成功 Toast：「支付成功 · 已获 +100 积分」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 订单 -->
+    <div class="flow" style="margin-top:24px">
+      <div class="flow-title">我的订单 — 待支付特殊说明</div>
+      <table>
+        <thead>
+          <tr><th>元素</th><th>展示位置</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>后果警告区</td><td>待支付订单卡片</td><td>「未支付将锁定：商机匹配、人脉联系、商务会话…」</td></tr>
+          <tr><td>积分奖励提示</td><td>待支付订单卡片</td><td>「现在支付立赠 100 积分」（黄色高亮）</td></tr>
+          <tr><td>支付成功反馈</td><td>顶部 Toast</td><td>「支付成功 · 已获 +100 积分」</td></tr>
+          <tr><td>订单详情子 Tab</td><td>订单详情页</td><td>订单详情 / 关联商机 / 合同附件 / 支付记录</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Story Line 1 -->
+  <div class="story-section">
+    <div class="story-header">
+      <div class="story-role-tag free">普通用户</div>
+      <div class="story-title">故事线一：张明的第一天</div>
+      <div class="story-bg">某制造企业采购部经理，刚注册平台，希望寻找产业链合作伙伴。</div>
+    </div>
+    <div class="story-acts">
+      <div class="act">
+        <div class="act-title"><span class="act-num">第一幕</span> 注册后首次打开平台</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>首页</strong>，看到平台公告和商机推荐列表，可浏览商机标题和摘要</li>
+            <li>点击「产业数字化协同服务需求」商机，进入详情页</li>
+            <li>核心内容被遮挡，联系方式、企业详情显示「升级会员后可见」</li>
+            <li>张明意识到需要升级才能获取完整信息</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第二幕</span> 探索人脉功能</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>人脉</strong>模块，看到推荐联系人列表，显示姓名和职位</li>
+            <li>点击某联系人的手机号，触发「解锁人脉」引导弹窗</li>
+            <li>提示需升级为付费会员才可查看完整联系方式</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第三幕</span> 查看个人中心，决定升级</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>个人中心</strong>，看到积分余额和「免费用户」状态</li>
+            <li>会员卡区域展示<strong>两个独立入口</strong>：「付费会员」卡片 + 「产业合伙人」卡片</li>
+            <li>选择升级为付费会员：选择套餐 → 确认支付 → 完成</li>
+            <li>支付成功后顶部提示「支付成功 · 已获 +100 积分」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第四幕</span> 探索积分中心</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>积分中心</strong>，查看当前余额和获取途径</li>
+            <li>了解积分可用于 AI 助手对话</li>
+            <li>完成「完善资料」任务，获得 50 积分</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story Line 2 -->
+  <div class="story-section">
+    <div class="story-header">
+      <div class="story-role-tag member">付费会员</div>
+      <div class="story-title">故事线二：李薇的商务拓展</div>
+      <div class="story-bg">新能源行业销售总监，已升级为付费会员，主要用平台拓展商机和商务联系。</div>
+    </div>
+    <div class="story-acts">
+      <div class="act">
+        <div class="act-title"><span class="act-num">第一幕</span> 发现并跟进商机</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>商机</strong>模块，看到完整商机列表（含项目金额、发布企业）</li>
+            <li>进入商机详情，切换 4 个子 Tab：商机详情 / 关联项目 / 资料 / 洽谈记录</li>
+            <li>仔细阅读需求描述，决定跟进</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第二幕</span> 上传资料，推进签约</div>
+        <div class="act-body">
+          <ul>
+            <li>在<strong>资料 Tab</strong> 上传项目方案 PDF</li>
+            <li>点击文件「⋮」→「重命名」，改名为「方案_v2_终版.pdf」</li>
+            <li>确认合作后点击「签约」，弹出确认弹窗，商机状态更新为「已签约」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第三幕</span> 同步资料至知识库</div>
+        <div class="act-body">
+          <ul>
+            <li>在资料 Tab 点击文件「⋮」→「同步至知识库」</li>
+            <li>进入<strong>知识库</strong>模块，确认文件已出现在列表中</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第四幕</span> 通过人脉联系合作方</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>人脉</strong>模块，直接查看完整联系方式（付费权限）</li>
+            <li>进入<strong>会话</strong>模块发起商务会话</li>
+            <li>调用 AI 助手起草合作邀请函（消耗积分）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第五幕</span> 查看订单，完成待支付</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>我的订单</strong>，切换「待支付」Tab</li>
+            <li>卡片上显示后果警告和「现在支付立赠 100 积分」提示</li>
+            <li>点击「立即支付」，Toast 提示「支付成功 · 已获 +100 积分」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第六幕</span> 申请升级为合伙人</div>
+        <div class="act-body">
+          <ul>
+            <li>在<strong>个人中心</strong>点击「升级为合伙人」</li>
+            <li>直接进入资质文件上传步骤，上传营业执照 PDF + 项目案例图片</li>
+            <li>文件上传后「下一步：支付」按钮解锁，完成支付</li>
+            <li>显示「申请已提交，等待审核」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story Line 3 -->
+  <div class="story-section">
+    <div class="story-header">
+      <div class="story-role-tag partner">产业合伙人</div>
+      <div class="story-title">故事线三：王总的协作管理日</div>
+      <div class="story-bg">产业园区运营方负责人，平台合伙人，负责发起并管理多个产业协作项目和场景。</div>
+    </div>
+    <div class="story-acts">
+      <div class="act">
+        <div class="act-title"><span class="act-num">第一幕</span> 总览项目协作全景</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>项目</strong>模块，看到「产业链协同服务项目」和「新能源储能EPC总包项目」</li>
+            <li>进入第一个项目，浏览 4 个子 Tab：项目详情 / 成员 / 关联商机 / 资料</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第二幕</span> 精细化管理项目资料</div>
+        <div class="act-body">
+          <ul>
+            <li>切换到<strong>资料 Tab</strong>，上传「项目进展报告_Q3.docx」</li>
+            <li>对旧文档执行「归档」操作，文件变灰标记为「已归档」</li>
+            <li>对重要文档执行「同步至知识库」</li>
+            <li>对废弃草稿执行「删除」，从列表移除</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第三幕</span> 管理应用场景</div>
+        <div class="act-body">
+          <ul>
+            <li>切换至<strong>场景</strong>模块，进入「产业协同应用场景」详情</li>
+            <li>在资料 Tab 中通过「重命名」操作整理文档命名规范</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第四幕</span> 解散已完成的场景</div>
+        <div class="act-body">
+          <ul>
+            <li>在场景详情页底部找到「解散场景」按钮（仅王总作为创建人可见）</li>
+            <li>弹出底部确认弹窗，展示解散后果警告</li>
+            <li>填写解散原因「场景目标已达成，正式归档」，「确认解散」按钮解锁</li>
+            <li>确认后：列表卡片变灰显示「已解散」，详情页顶部出现提示条，解散按钮消失</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第五幕</span> 知识库统一管理档案</div>
+        <div class="act-body">
+          <ul>
+            <li>打开<strong>知识库</strong>，看到来自多个商机/项目/场景同步的所有文件</li>
+            <li>对部分文件执行归档或删除</li>
+            <li>知识库作为个人私有资产，独立于各协作空间管理</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第六幕</span> 优先人脉 + 商机资源</div>
+        <div class="act-body">
+          <ul>
+            <li>进入<strong>人脉</strong>模块，查看人脉图谱（合伙人专属功能）</li>
+            <li>首页商机列表顶部标注「优先」标签，商机推送优先级最高</li>
+            <li>跟进一条高优先级需求，完成签约</li>
+          </ul>
+        </div>
+      </div>
+      <div class="act">
+        <div class="act-title"><span class="act-num">第七幕</span> 会员续费</div>
+        <div class="act-body">
+          <ul>
+            <li>在<strong>个人中心</strong>看到「产业合伙人 · 有效期至 2026-12-31」</li>
+            <li>点击「续费」按钮，直接进入支付步骤，完成续费</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-section">
+    <div class="summary-title">三条故事线功能覆盖对照</div>
+    <table>
+      <thead>
+        <tr>
+          <th>功能模块</th>
+          <th class="tc"><span class="tag-free">张明（普通用户）</span></th>
+          <th class="tc"><span class="tag-member">李薇（付费会员）</span></th>
+          <th class="tc"><span class="tag-partner">王总（产业合伙人）</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>首页浏览</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机摘要</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机详情 / 签约 / 终止</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>商机资料管理</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>人脉联系方式</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>人脉图谱</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>商务会话 / AI 助手</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>知识库</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>资料同步至知识库</td><td class="tc no">✗</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>项目协作</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>应用场景</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc yes">✓</td></tr>
+        <tr><td>解散项目 / 场景</td><td class="tc no">✗</td><td class="tc no">✗</td><td class="tc cond">✓（创建人）</td></tr>
+        <tr><td>我的订单（全 Tab）</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>积分中心</td><td class="tc yes">✓</td><td class="tc yes">✓</td><td class="tc yes">✓</td></tr>
+        <tr><td>会员升级（双入口）</td><td class="tc yes">✓</td><td class="tc cond">升级合伙人</td><td class="tc cond">续费</td></tr>
+        <tr><td>合伙人资质文件上传</td><td class="tc na">—</td><td class="tc yes">✓</td><td class="tc na">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  打印 / 导出 PDF
+</button>
+
+</body>
+</html>
